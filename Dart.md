@@ -231,14 +231,14 @@ final addressBook = (AddressBookBuilder()
 
 ### 其他运算符
 
-|运算符|名称|含义|
-|---|---|---|
-|`()`|函数应用|表示函数调用|
-|`[]`|下标访问|表示对可重写 `[]` 运算符的调用；示例： `fooList[1]` 将整数 `1` 传递给 `fooList` 以访问索引 `1` 处的元素|
-|`?[]`|条件下标访问|与 `[]` 相同，但最左边的操作数可以为 null；示例： `fooList?[1]` 将整数 `1` 传递给 `fooList` 以访问索引 `1` 处的元素，除非 `fooList` 为 null（在这种情况下，表达式的值为 null）|
-|`.`|成员访问|指的是表达式的属性；示例： `foo.bar` 从表达式 `foo` 中选择属性 `bar`|
-|`?.`|条件成员访问|与 `.` 相同，但最左边的操作数可以为 null；示例： `foo?.bar` 从表达式 `foo` 中选择属性 `bar` ，除非 `foo` 为 null（在这种情况下， `foo?.bar` 的值为 null）|
-|`!`|非空断言运算符|将表达式转换为其底层的非空类型，如果转换失败则抛出运行时异常；示例： `foo!.bar` 断言 `foo` 不为 null 并选择属性 `bar` ，除非 `foo` 为 null，在这种情况下会抛出运行时异常|
+| 运算符   | 名称      | 含义                                                                                                                        |
+| ----- | ------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `()`  | 函数应用    | 表示函数调用                                                                                                                    |
+| `[]`  | 下标访问    | 表示对可重写 `[]` 运算符的调用；示例： `fooList[1]` 将整数 `1` 传递给 `fooList` 以访问索引 `1` 处的元素                                                  |
+| `?[]` | 条件下标访问  | 与 `[]` 相同，但最左边的操作数可以为 null；示例： `fooList?[1]` 将整数 `1` 传递给 `fooList` 以访问索引 `1` 处的元素，除非 `fooList` 为 null（在这种情况下，表达式的值为 null） |
+| `.`   | 成员访问    | 指的是表达式的属性；示例： `foo.bar` 从表达式 `foo` 中选择属性 `bar`                                                                            |
+| `?.`  | 条件成员访问  | 与 `.` 相同，但最左边的操作数可以为 null；示例： `foo?.bar` 从表达式 `foo` 中选择属性 `bar` ，除非 `foo` 为 null（在这种情况下， `foo?.bar` 的值为 null）             |
+| `!`   | 非空断言运算符 | 将表达式转换为其底层的非空类型，如果转换失败则抛出运行时异常；示例： `foo!.bar` 断言 `foo` 不为 null 并选择属性 `bar` ，除非 `foo` 为 null，在这种情况下会抛出运行时异常                |
 
 ## 元数据
 
@@ -346,6 +346,64 @@ print(record.$2);
 ```
 
 
+## 字符串 String
+
+
+#### 查找和定位
+
+**String.indexOf**
+`int indexOf(Pattern pattern, [int start = 0])`
+
+返回字符串中第一个与 `pattern` 的位置，从 `start` 开始，如果没有则返回 -1
+
+```dart
+
+const string = 'Dartisans';
+print(string.indexOf('art')); // 1
+print(string.indexOf(RegExp(r'[A-Z][a-z]'))); // 0
+
+// Returns -1 if no match is found:
+
+const string = 'Dartisans';
+string.indexOf(RegExp(r'dart')); // -1
+
+```
+
+**String.lastIndexOf**
+
+#### 获取子串
+
+**String.substring**
+`(int start, [int? end]) → String`
+
+**String.split**
+`(Pattern pattern) → List<String>`
+```dart
+String str = 'Hello World';
+str.split(' ');  // ['Hello', 'World']
+```
+
+**String.splitMapJoin**
+`(Pattern pattern, {String Function(Match)? onMatch, String Function(String)? onNonMatch}) → String`
+```dart
+var result = str.splitMapJoin(
+  ' ',
+  onMatch: (m) => '\n',
+  onNonMatch: (n) => n.toUpperCase();
+)
+```
+
+
+
+
+
+
+
+
+
+
+
+
 ## 集合 Collections
 
 ### List
@@ -373,6 +431,63 @@ assert(list[1] == 2);
 ```dart
 var constantList = const [1, 2, 3]
 ```
+
+提前定义长度，分配空间：
+```dart
+List<int> D = List.filled(10, 0);
+```
+
+#### 增加和删除
+增加
+```dart
+// 在末尾添加
+list.add(4);
+list.addAll(5,6);
+// 在指定位置插入
+list.insert(0, 0);
+list.insertAll(3, [10, 11]);
+```
+删除
+```dart
+// 删除第一个匹配的元素
+list.remove(3);
+// 删除指定索引的元素
+list.removeAt(0);
+// 删除最后一个
+list.removeLast();
+// 按条件删除
+list.removeWhere((item) => item > 3);
+```
+
+
+#### 映射和转换
+
+```dart
+// 转换每个元素
+var doubled = list.map((item) => item * 2);
+// 转换为list
+print(doubled.toList());
+// toSet 去重
+var arr = [1, 2, 2, 3, 3, 3];
+print(arr.toSet());
+// 转换为索引做键的 Map
+print(list.asMap());
+```
+
+
+
+
+#### reversed 属性
+```dart
+final numbers = <String>['two', 'three', 'four'];  
+final reverseOrder = numbers.reversed;  
+print(reverseOrder.toList()); // [four, three, two]
+```
+
+
+
+
+
 
 
 ### Set
@@ -416,6 +531,7 @@ final constantSet = const {
 ```
 ### Map
 
+
 在Dart中，Map的键是唯一的。
 ```dart
 var gifts = {  
@@ -426,6 +542,129 @@ var gifts = {
 };  
 ​  
 var nobleGases = {2: 'helium', 10: 'neon', 18: 'argon'};  
+```
+
+Dart 中，无法实现类似 C++中的 `map['a']++` 这样的操作，在 Dart 中，`map['a']` 在语法上是一个 getter 调用，不是一个可赋值的表达式。
+```dart
+map['a'] = map['a']! + 1;
+map['a'] = (map['a'] ?? 0) + 1;
+
+map.update('a', (v) => v + 1);
+map.update('a', (v) => v + 1, ifAbsent() => 0);
+
+```
+
+
+#### 初始化操作
+
+**Map.fromIterable**
+
+```dart
+(Iterable<dynamic> iterable, {K Function(dynamic)? key, V Function(dynamic)? value}) → Map<K, V>
+```
+
+创建一个 Map 实例，其中键和值由 [iterable] 计算得出。
+
+对于 [iterable] 中的每个元素，分别将 [key] 和 [value] 应用于该元素，从而计算出一个键值对。
+
+```dart
+var idx = Map.fromIterable(
+  word1.split(''),
+  key: (char) => char,
+  value: (char) => word1.indexOf(char),
+);
+```
+
+
+**Map.fromIterables**
+从两个独立的 Iterable（键列表和值列表）创建
+```dart
+var keys = ['a', 'b', 'c'];
+var values = [1, 2, 3];
+
+var map = Map.fromIterables(keys, values);
+```
+
+
+
+**集合推导式**
+
+```dart
+var idx = {
+	for (int i = 0; i < word.length; i++) 
+		word[i]: i
+}
+```
+
+
+**创建不可修改的 Map**
+
+```dart
+var unmodifiable = Map.unmodifiable(mutable);
+```
+
+
+
+
+
+#### 添加和更新操作
+```dart
+// 批量更新
+map.addAll({'c': 3, 'd': 4});
+// 添加多个键值对
+
+// 键不存在时才添加
+map.putIfAbsent('a', () => 100);
+
+// 批量更新所有值
+map.updateAll((Key, value) => value * 2);
+
+
+```
+
+
+#### 删除操作
+```dart
+map.remove('a');
+// 按条件删除
+map.removeWhere((k, v) => v > 3);
+
+// 清除所有
+map.clear();
+```
+
+
+#### 存在性检查和获取值
+```dart
+// 检查键或者值存在性
+map.containsKey('a');
+map.containsValue(2);
+
+map.isEmpty();
+map.isNotEmpty();
+
+// 获取所有键/值/条目
+map.keys();
+map.values();
+map.entries();
+
+```
+
+
+#### 遍历方式
+```dart
+map.forEach((k, v) {
+	print('$k: $v');
+})
+
+for (var entry in map.entries) {
+	print('${entry.key}: ${entry.value}');
+}
+
+for (var key in map.keys) {
+	print(key);
+}
+
 ```
 
 
@@ -526,7 +765,7 @@ List<String> buildCommandLine(
 Collection elements 本质上是让集合的构建从“过程式”变成了“声明式”，让代码更贴近你对结果的直观描述。
 
 
-### 泛型
+## 泛型
 
 
 ### 类型别名
@@ -545,15 +784,16 @@ ListMapper<String> m2 = {};         // 更短更清晰
 在大多数情况下，我们建议使用 [内联函数类型](https://dart.wendang.dev/effective-dart/design#prefer-inline-function-types-over-typedefs) 代替函数的 typedef。 但是，函数 typedef 仍然很有用
 
 
+
 # 函数 Functions
 
 ### 函数的参数
 
-|类型|语法|是否必须|例子|
-|---|---|---|---|
-|**必填位置参数**|直接写|✅ 必须传|`String name`|
-|**可选位置参数**|用 `[ ]` 包起来|❌ 可以不传|`[String? extra]`|
-|**可选命名参数**|用 `{ }` 包起来|❌ 可不传（除非加 `required`）|`{String? name}`|
+| 类型         | 语法          | 是否必须                  | 例子                |
+| ---------- | ----------- | --------------------- | ----------------- |
+| **必填位置参数** | 直接写         | ✅ 必须传                 | `String name`     |
+| **可选位置参数** | 用 `[ ]` 包起来 | ❌ 可以不传                | `[String? extra]` |
+| **可选命名参数** | 用 `{ }` 包起来 | ❌ 可不传（除非加 `required`） | `{String? name}`  |
 
 # 模式 Patterns
 
