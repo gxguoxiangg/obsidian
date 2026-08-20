@@ -1,6 +1,6 @@
 
 
-####	安装Linux
+#### 安装Linux
 
 以安装Ubuntu 22.04 Server版为例：
 
@@ -81,7 +81,7 @@
 
 
 
-####	网络配置
+#### 网络配置
 
 **使用 nmcli 管理网络**
 
@@ -130,17 +130,7 @@ sudo ip route del default 2> /dev/null
 
 
 
-
-
-
-
-
-
-
-
-
-
-####	Python
+#### Python
 
 在Linux环境下使用pip：
 
@@ -175,7 +165,7 @@ pipreqs . --force
 
 
 
-####	Linux中使用U盘
+#### Linux中使用U盘
 
 1. 查看块设备
 
@@ -223,7 +213,7 @@ pipreqs . --force
 
 
 
-####	更新时区
+#### 更新时区
 
 查看当前时间状态：
 
@@ -238,9 +228,6 @@ sudo timedatectl set-timezone Asia/Shanghai
 ```
 
 
-
-
-
 #### MySQL相关
 
 SQL备份：
@@ -251,9 +238,7 @@ mysql -u "用户名" -p "数据库" < 备份文件.sql
 
 
 
-
-
-####	Nginx 相关
+#### Nginx 相关
 
 Nginx的配置文件和目录遵循特定的结构：
 
@@ -270,9 +255,7 @@ Nginx的配置文件和目录遵循特定的结构：
 
 
 
-
-
-####	MRBS部署
+#### MRBS部署
 
 使用 Nginx + MySQL + PHP。
 
@@ -369,7 +352,7 @@ sudo update-locale
 
 
 
-####	Tmux
+#### [[tmux]]
 
 **Tmux的dotfile默认在**
 
@@ -455,7 +438,7 @@ ctrl-b space
 
 
 
-####	排障相关
+#### 排障相关
 
 查看内核日志：
 
